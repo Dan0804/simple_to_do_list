@@ -17,6 +17,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Tile {
+  String job;
+  bool isDone;
+
+  Tile(this.job, this.isDone);
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -25,7 +32,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, dynamic>> tileList = [];
+  List<Tile> tileList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +48,11 @@ class _HomePageState extends State<HomePage> {
                 var tile = tileList[index];
                 return ListTile(
                   title: Text(
-                    tile["job"],
+                    tile.job,
                     style: TextStyle(
                       fontSize: 24,
-                      color: tile["isDone"] ? Colors.grey : Colors.black,
-                      decoration: tile["isDone"] ? TextDecoration.lineThrough : TextDecoration.none,
+                      color: tile.isDone ? Colors.grey : Colors.black,
+                      decoration: tile.isDone ? TextDecoration.lineThrough : TextDecoration.none,
                     ),
                   ),
                   trailing: IconButton(
@@ -59,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onTap: () {
                     setState(() {
-                      tile["isDone"] = !tile["isDone"];
+                      tile.isDone = !tile.isDone;
                     });
                   },
                 );
@@ -75,10 +82,7 @@ class _HomePageState extends State<HomePage> {
           if (job != null) {
             setState(() {
               tileList.add(
-                {
-                  "job": job,
-                  "isDone": false,
-                },
+                Tile(job, false),
               );
             });
           }
